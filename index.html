@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- ===== SEO META TAGS ===== -->
+    <meta name="description" content="HueFlow is a free color palette generator and explorer for designers and developers. Discover, create, and export beautiful harmonious color schemes instantly.">
+    <meta name="keywords" content="color palette, color generator, design colors, color scheme, hex colors, color picker, UI design, HEX RGB">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="HueFlow">
+    <link rel="canonical" href="./">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HueFlow | Designer Color Palette Generator">
+    <meta property="og:description" content="HueFlow is a free color palette generator and explorer for designers and developers. Discover, create, and export beautiful harmonious color schemes instantly.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&h=630&q=80">
+    <meta property="og:site_name" content="HueFlow">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HueFlow | Designer Color Palette Generator">
+    <meta name="twitter:description" content="HueFlow is a free color palette generator and explorer for designers and developers. Discover, create, and export beautiful harmonious color schemes instantly.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "HueFlow",
+      "description": "HueFlow is a free color palette generator and explorer for designers and developers. Discover, create, and export beautiful harmonious color schemes instantly.",
+      "applicationCategory": "Utility",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <!-- ========================= -->
+    <title>HueFlow | Designer Color Palettes</title>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Color Palette Inspector Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalBody">
+                <!-- Injected dynamically by script.js -->
+            </div>
+            
+            <!-- Strategic Sponsored Ad inside details view -->
+            <div class="modal-ad">
+                <span class="ad-tag">CREATIVE TOOL SPONSOR</span>
+                <div class="modal-ad-grid">
+                    <img id="detail-ad-img" src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=300&h=200&q=80" alt="Ad">
+                    <div>
+                        <h4 id="detail-ad-title">Adobe Creative Cloud</h4>
+                        <p id="detail-ad-desc">Get all your favorite design tools in one place. Limited time offer for students.</p>
+                        <button class="ad-btn" id="detail-ad-btn" aria-label="Detail Ad Btn">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header>
+        <div class="logo">Hue<span>Flow</span></div>
+        <div class="header-actions">
+            <button id="btn-open-palette-creator" aria-label="Btn Open Palette Creator">Custom Base</button>
+            <button id="generate-btn" aria-label="Generate Btn">Generate Palette</button>
+        </div>
+    </header>
+
+    <!-- Swatches Main Area -->
+    <main id="palette-container">
+        <!-- Colors swatches dynamically injected here by script.js -->
+    </main>
+
+    <!-- Floating details button -->
+    <div class="expand-palette" id="btn-expand-details">View Details →</div>
+
+    <!-- 2. Custom Hex Palette Creator Modal -->
+    <div id="paletteModal" class="modal" style="z-index: 10020;">
+        <div class="modal-content" style="max-width: 500px; padding: 3.5rem;">
+            <span class="close-modal" id="btn-close-palette-modal">&times;</span>
+            <h2 style="font-size: 2.2rem; font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -0.5px;">Custom Base Palette</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 2rem;">Input a custom base hex code. HueFlow will programmatically shackle and generate a high-end designer spectrum.</p>
+
+            <form id="custom-palette-form" onsubmit="event.preventDefault(); submitCustomPalette();">
+                <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.2rem;">
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                        <label style="font-size: 0.8rem; font-weight: 700; color: #111; text-transform: uppercase;">Base HEX Color</label>
+                        <input type="text" id="palette-base-hex" required placeholder="e.g. #3498db, #e74c3c" style="padding: 0.8rem 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; text-align: center; text-transform: uppercase;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                        <label style="font-size: 0.8rem; font-weight: 700; color: #111; text-transform: uppercase;">Color Arrangement</label>
+                        <select id="palette-arrangement" style="padding: 0.8rem 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none;">
+                            <option value="Harmonious">Harmonious</option>
+                            <option value="Analogous">Analogous</option>
+                            <option value="Contrasting">Contrasting</option>
+                            <option value="Monochromatic">Monochromatic</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="ad-btn" style="width: 100%; padding: 1.1rem; border-radius: 8px;" aria-label="Button">Synchronize Palette</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Timed Scarcity Premium Upgrade Modal -->
+    <div id="premiumUpgradeModal" class="modal" style="z-index: 10050;">
+        <div class="modal-content" style="max-width: 650px; text-align: center; padding: 4rem 3rem;">
+            <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🎨</div>
+            <span class="ad-tag" style="display: inline-block; margin-bottom: 1rem;">HUEFLOW PRO ACCESS</span>
+            <h2 style="font-size: 2.8rem; font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -0.5px;">Unlock the Pro Color Studio</h2>
+            <p style="font-size: 1.15rem; color: #666; line-height: 1.6; margin-bottom: 2.5rem;">Unlock the complete designer collection containing palette export scripts (Figma, Adobe, Sketch), advanced color theory guides, and disable all creative ads.</p>
+
+            <div style="background: #fafafa; padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 3rem;">
+                <div style="font-size: 0.8rem; font-weight: 800; color: #000; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">PRO STUDIO ENROLLMENT CLOSES IN</div>
+                <div id="scarcity-countdown" style="font-size: 2.2rem; font-weight: 800; color: #111; font-family: monospace; letter-spacing: 2px;">10:00</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button class="ad-btn" id="btn-upgrade-now" style="width: 100%; padding: 1.2rem; font-size: 1.2rem; background: #000; border: none; color: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);" aria-label="Btn Upgrade Now">
+                    Upgrade for $1.99 / mo
+                </button>
+                <button class="btn-secondary" id="btn-skip-upgrade" style="width: 100%; padding: 1rem; border: none; background: transparent; color: #747d8c; font-weight: 700; cursor: pointer;" aria-label="Btn Skip Upgrade">
+                    Keep Standard Tier
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Interstitial Skip-Ad Modal Overlay -->
+    <div id="interstitialModal" class="modal" style="z-index: 10100;">
+        <div class="modal-content" style="max-width: 600px; text-align: center; padding: 3rem; position:relative;">
+            <span class="ad-tag" style="display: inline-block; margin-bottom: 1.5rem;">SPONSORED CREATIVE</span>
+            
+            <div class="ad-sponsor-container" style="display: flex; gap: 2rem; align-items: center; text-align: left; margin-bottom: 2.5rem;">
+                <img id="interstitial-ad-img" src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=200&h=200&q=80" style="width: 140px; height: 140px; border-radius: 12px; object-fit: cover; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                <div>
+                    <h3 id="interstitial-ad-title" style="font-size: 1.5rem; font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom: 0.5rem; color:#222; letter-spacing: -0.5px;">Master Color Theory</h3>
+                    <p id="interstitial-ad-desc" style="font-size: 0.95rem; color: #555; line-height: 1.6;">Get all your favorite design tools in one place. Limited time offer for students.</p>
+                </div>
+            </div>
+
+            <div id="interstitial-ad-promo" style="background: #fafafa; padding: 1rem; border-radius: 8px; font-weight: 700; color: #000; font-size: 0.9rem; letter-spacing: 0.5px; border: 1px dashed rgba(0, 0, 0, 0.15); margin-bottom: 2.5rem;">
+                CODE "HUEPRO26" FOR 20% OFF
+            </div>
+
+            <div style="display: flex; gap: 1.5rem;">
+                <button class="btn-secondary" id="btn-skip-ad" style="flex: 1; padding: 1rem; opacity: 0.4; cursor: not-allowed; border: 1px solid #ccc; background: none; font-weight:700;" disabled aria-label="Btn Skip Ad">
+                    Skip Ad in 5s
+                </button>
+                <button class="ad-btn" id="btn-claim-ad" style="flex: 1; padding: 1rem; background: #000; border-color: #000; color:white;" aria-label="Btn Claim Ad">
+                    Claim Offer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Dynamic Inspiration Sync Celebration Success Modal -->
+    <div id="celebrationModal" class="modal" style="z-index: 10200;">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 1.5s infinite;">💎</div>
+            <h2 style="font-size: 2.2rem; font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -0.5px;">Palette Synchronized!</h2>
+            <p style="font-size: 1.05rem; color: #555; line-height: 1.6; margin-bottom: 2.5rem;">Your high-fidelity designer color swatches, contrast ratios, and HEX configurations are dynamically computed!</p>
+            <button class="ad-btn" id="btn-close-celebration" style="width: 100%; background: #000; border-color: #000; color: white;" aria-label="Btn Close Celebration">
+                Acknowledge Success
+            </button>
+        </div>
+    </div>
+
+    <!-- 6. Glassmorphic Exit Intent Discount Modal -->
+    <div id="exitIntentModal" class="modal" style="z-index: 10300;">
+        <div class="modal-content" style="max-width: 600px; text-align: center; padding: 4rem 3rem;">
+            <span class="close-modal" id="closeExitIntent">&times;</span>
+            <span class="ad-tag" style="display:inline-block; margin-bottom:1rem; position:static;">WAIT! BEFORE YOU LEAVE...</span>
+            <h2 style="font-size: 2.8rem; font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom: 1rem; color: #111; letter-spacing: -0.5px;">Claim 80% Off Pro Studio</h2>
+            <p style="font-size: 1.15rem; color: #666; line-height: 1.6; margin-bottom: 2.5rem;">Unlock the complete micro-designer color tracking toolsets and disable all creative ads forever.</p>
+            <button class="ad-btn" style="width: 100%; font-size: 1.2rem; padding: 1.1rem; background: #000; border: none; color: white; border-radius: 12px;" aria-label="Button">
+                Claim 80% Discount Now
+            </button>
+            <p style="margin-top: 1.5rem; font-size: 0.95rem;"><a href="/" id="declineExitIntent" style="color: #999; text-decoration: underline;">No thanks, I prefer standard tier</a></p>
+        </div>
+    </div>
+
+    <!-- 7. Premium Mock Ad Blocker Modal -->
+    <div id="adBlockModal" class="modal" style="z-index: 10400; background: rgba(0,0,0,0.92);">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem;">
+            <h2 style="font-size: 2.2rem; color: #ff4757; font-family: 'Space Grotesk', sans-serif; font-weight:700; margin-bottom: 1rem; letter-spacing: -0.5px;">Ad Blocker Detected</h2>
+            <p style="font-size: 1.05rem; color: #555; line-height: 1.6; margin-bottom: 2.5rem;">We support our palette generators through sponsorships. Please consider whitelisting our site or upgrade to support creative developers!</p>
+            <div style="display: flex; gap: 1rem;">
+                <button class="ad-btn" style="flex: 1; background: #000; border-color: #000; color: white;" onclick="location.reload()" aria-label="Button">I Whitelisted</button>
+                <button class="ad-btn" style="flex: 1; background: #ff4757; border-color: #ff4757; color: white;" id="btn-adblock-premium" aria-label="Btn Adblock Premium">Go Premium ($1.99)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Decoupled Floating Programmatic Ad Banner -->
+    <div class="floating-ad-banner" id="floating-ad-banner" style="display: none;">
+        <!-- Injected programmatically by script.js -->
+    </div>
+
+    <footer>
+        <p>Press <kbd>Space</kbd> or click Generate to create a new palette.</p>
+    </footer>
+
+    <script src="script.min.js"></script>
+
+</body>
+</html>
