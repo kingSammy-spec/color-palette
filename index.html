@@ -220,5 +220,38 @@
 
     <script src="script.min.js"></script>
 
-</body>
+
+<!-- Policy Modals -->
+<div id="policy-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; color: #fff;">
+  <div style="background: #111; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; border: 1px solid #333; position: relative; text-align: left;">
+    <button onclick="document.getElementById('policy-modal').style.display='none'" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+    <h2 id="policy-modal-title" style="margin-bottom: 1rem;">Title</h2>
+    <div id="policy-modal-content" style="line-height: 1.6; font-size: 0.95rem; color: #ccc;">Content</div>
+  </div>
+</div>
+<script>
+function showModal(type) {
+  const modal = document.getElementById('policy-modal');
+  const title = document.getElementById('policy-modal-title');
+  const content = document.getElementById('policy-modal-content');
+  if(type === 'about') {
+    title.innerText = 'About Us';
+    content.innerHTML = '<p>Welcome to our site! We are committed to providing the best tools and resources for our users.</p>';
+  } else if(type === 'contact') {
+    title.innerText = 'Contact Us';
+    content.innerHTML = '<p>Email us at support@example.com.</p><form><input type="email" placeholder="Email" style="width:100%; padding: 12px; margin-top: 10px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px;" /><br><textarea placeholder="Message" style="width:100%; padding: 12px; margin-top: 10px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px;" rows="4"></textarea><br><button type="button" style="margin-top:10px; padding: 10px 20px; background: #10b981; color: #fff; font-weight: bold; border: none; border-radius: 4px; cursor: pointer;">Send</button></form>';
+  } else if(type === 'privacy') {
+    title.innerText = 'Privacy Policy';
+    content.innerHTML = '<p>We value your privacy. We use third-party advertising companies to serve ads when you visit our website. These companies may use information (not including your name, address, email address, or telephone number) about your visits to this and other websites in order to provide advertisements about goods and services of interest to you.</p>';
+  }
+  modal.style.display = 'flex';
+}
+</script>
+
+<div style="text-align: center; padding: 20px; font-size: 0.9rem; color: #888;">
+  <a href="#" onclick="showModal('about'); return false;" style="color: #888; text-decoration: none; margin: 0 10px;">About</a> |
+  <a href="#" onclick="showModal('contact'); return false;" style="color: #888; text-decoration: none; margin: 0 10px;">Contact</a> |
+  <a href="#" onclick="showModal('privacy'); return false;" style="color: #888; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+</div>
+\n</body>
 </html>
